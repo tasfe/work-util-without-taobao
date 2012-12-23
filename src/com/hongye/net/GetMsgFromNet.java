@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 /**
  * 从新浪获取比赛信息
  * @author hongyehwy
@@ -52,7 +57,54 @@ public class GetMsgFromNet {
 	public static void main(String[] args) {
 		String urlStr ="http://match.sports.sina.com.cn/football/team_iframe.php?year=2010&id=52";
 		
-		getMsgFromRomteUrl(urlStr);
+		String toMatch ="http://caipiao.taobao.com";
+		
+//		getMsgFromRomteUrl(urlStr);
+		
+		getToMatchGame(toMatch);
+	}
+	
+	
+	public static void getHistoryMatch(String urlStr){
+		URL urlBase;
+		try {
+			urlBase = new URL(urlStr);
+			Document doc = Jsoup.parse(urlBase, 1000);
+			
+			Element content = doc.getElementById("sub01_c1");
+			
+			Elements trs = content.getElementsByTag("tr");
+			
+			for(Element tr : trs){
+				System.out.println(tr);
+			}
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void getToMatchGame(String urlStr){
+		URL urlBase;
+		try {
+			urlBase = new URL(urlStr);
+			Document doc = Jsoup.parse(urlBase, 1000);
+			
+			Elements links = doc.select("ul.racelist");
+					
+//			Elements trs = content.getElementsByTag("tr");
+			
+			for(Element e : links){
+				System.out.println(e);
+			}
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
