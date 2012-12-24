@@ -1,8 +1,6 @@
 package com.hongye.net;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,63 +18,55 @@ public class GetMsgFromNet {
 	
 	private static final String CODE = "gb2312";
 	
-	public static void getMsgFromRomteUrl(String urlStr){
-		
-		BufferedReader br = null;
-		
-		if(urlStr.isEmpty()){
-			return;
-		}
-		
-		try {
-			URL urlBase = new URL(urlStr);
-			
-			br = new BufferedReader(new InputStreamReader(urlBase.openStream()));
-			
-			String inputLine;
-			
-			while((inputLine = br.readLine()) != null){
-				if(inputLine.contains("")){
-					System.out.println(inputLine);
-				}
-			}
-			
-		} catch (MalformedURLException e) {
-			System.out.println("MalformedURLException,error = "+e.getMessage());
-		} catch (IOException e){
-			System.out.println("IOException,error = "+e.getMessage());
-		}finally{
-			try {
-				br.close();
-			} catch (IOException e) {
-				System.out.println("close BufferedReader error,msg = "+e.getMessage());
-			}
-		}
-	}
-	
 	public static void main(String[] args) {
 		String urlStr ="http://match.sports.sina.com.cn/football/team_iframe.php?year=2010&id=52";
 		
 		String toMatch ="http://caipiao.taobao.com";
 		
-//		getMsgFromRomteUrl(urlStr);
+		String lotteryAnalyseUrl = "http://www.tao123.com/html/caipiao/";
 		
-		getToMatchGame(toMatch);
+//		getHistoryMatch(urlStr);
+		
+//		getToMatchGamer(toMatch);
+		
+		analyseLottery(lotteryAnalyseUrl);
 	}
 	
+	public static void analyseLottery(String lotteryAnalyseUrl){
+		URL urlBase;
+		try {
+			urlBase = new URL(lotteryAnalyseUrl);
+			Document doc = Jsoup.parse(urlBase, 10000);
+			
+			Element link = doc.select("a").first();
+			
+			String linkHref = link.attr("href");
+			
+			System.out.println(linkHref);
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	/**
+	 * 历史交战记录
+	 * @param urlStr
+	 */
 	public static void getHistoryMatch(String urlStr){
 		URL urlBase;
 		try {
 			urlBase = new URL(urlStr);
-			Document doc = Jsoup.parse(urlBase, 1000);
+			Document doc = Jsoup.parse(urlBase, 10000);
 			
 			Element content = doc.getElementById("sub01_c1");
 			
 			Elements trs = content.getElementsByTag("tr");
 			
 			for(Element tr : trs){
-				System.out.println(tr);
+				System.out.println(tr.text());
 			}
 			
 		} catch (MalformedURLException e) {
@@ -86,20 +76,25 @@ public class GetMsgFromNet {
 		}
 	}
 	
-	public static void getToMatchGame(String urlStr){
+	/**
+	 * 将要比赛的场次
+	 * @param urlStr
+	 */
+	public static void getToMatchGamer(String urlStr){
 		URL urlBase;
 		try {
 			urlBase = new URL(urlStr);
-			Document doc = Jsoup.parse(urlBase, 1000);
+			Document doc = Jsoup.parse(urlBase, 10000);
 			
 			Elements links = doc.select("ul.racelist");
-					
-//			Elements trs = content.getElementsByTag("tr");
+//			Elements links = doc.select("span.vs");
 			
-			for(Element e : links){
+			String[] el = links.text().split("竞彩");
+			
+			for(String e : el){
+				if(e.contains("英 超"))
 				System.out.println(e);
 			}
-			
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
