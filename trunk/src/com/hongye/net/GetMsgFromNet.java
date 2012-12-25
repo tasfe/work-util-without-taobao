@@ -12,8 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * 从新浪获取比赛信息
- * @author hongyehwy
+ *  @author hongyehwy
  *
  */
 public class GetMsgFromNet {
@@ -55,7 +54,6 @@ private static final String CODE = "gb2312";
 	
 	
 	private static TeamDO fomatInput(String input){
-//		String  str = "英超 周三005 22:45 埃弗顿 0 维冈竞技 战绩 2012-12-26 1.48 4.06  6.55放大 1.40 4.20 6.20 包 http://live.sina.aicai.com/xiyaou/datan!getDatanMatchInfo.jhtml?betId=711098";
 		String[] tmp = input.split(" ");
 		
 		TeamDO teamDO = new TeamDO();
@@ -83,7 +81,7 @@ private static final String CODE = "gb2312";
 			for(Element e: links){
 //				
 //				Elements s = e.select("td.scbg2");
-				if(e.text().contains("英超")){
+				if(e.text().contains("Ӣ��")){
 					String tmp = e.text()+" "+e.select("a").first().attr("href");
 //					System.out.println(e.text()+" "+e.select("a").first().attr("href"));
 					rst.add(fomatInput(tmp));
@@ -103,8 +101,7 @@ private static final String CODE = "gb2312";
 	
 	
 	/**
-	 * 彩票的原始地址
-	 * @param baseUrl
+	 * 	 * @param baseUrl
 	 */
 	private static void getLotteryAnalyseUrl(String baseUrl){
 		URL urlBase;
@@ -178,7 +175,6 @@ private static final String CODE = "gb2312";
 	
 	/**
 	 * return to match game
-	 * 必须从这里获取将要比赛的球队
 	 * @param urlStr
 	 */
 	public static void getToMatchGamer(String urlStr){
@@ -189,10 +185,10 @@ private static final String CODE = "gb2312";
 			
 			Elements links = doc.select("ul.racelist");
 			
-			String[] el = links.text().split("竞彩");
+			String[] el = links.text().split("");
 			
 			for(String e : el){
-				if(e.contains("英 超"))
+				if(e.contains(""))
 				System.out.println(e);
 			}
 			
