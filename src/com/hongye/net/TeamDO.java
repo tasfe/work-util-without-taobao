@@ -10,7 +10,7 @@ public class TeamDO {
 	private int guestTeamId;
 	private String analayseLink;
 	private Date compareTime;
-	private String league; //联赛类型
+	private String league; 
 	
 	
 	public String getHomeTeamName() {
