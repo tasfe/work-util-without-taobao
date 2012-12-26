@@ -11,7 +11,17 @@ public class GameResultDO {
 	private Date compareTime;
 	private String league; 
 	private boolean matchRst;
-	private int score;
+	private String gameRst;
+	private String date;
+
+	@Override
+	public String toString() {
+		return "[league="+league+",homeTeam="+homeTeam+
+				",socre="+gameRst+
+				",guestTeam="+guestTeam+
+				",date="+date+
+				",analayseLink="+analayseLink+"]";
+	}
 
 
 	public TeamDO getHomeTeam() {
@@ -72,15 +82,6 @@ public class GameResultDO {
 		this.league = league;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "[league="+league+",homeTeam="+homeTeam+",guestTeam="+guestTeam+",analayseLink="+analayseLink+"]";
-	}
-
-
-
 	public boolean isMatchRst() {
 		return matchRst;
 	}
@@ -91,15 +92,23 @@ public class GameResultDO {
 		this.matchRst = matchRst;
 	}
 
-
-
-	public int getScore() {
-		return score;
+	public String getGameRst() {
+		return gameRst;
 	}
 
 
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setGameRst(String gameRst) {
+		this.gameRst = gameRst;
+	}
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

@@ -31,5 +31,5 @@ public enum MatchType {
 		this.type = type;
 	}
 	
-	
-}
+
+	}
