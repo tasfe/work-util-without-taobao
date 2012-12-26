@@ -25,7 +25,7 @@ public class TeamDO {
 	}
 	@Override
 	public String toString() {
-		return "teamName="+teamName+",teamId="+teamId;
+		return "(name:"+teamName+";id:"+teamId+")";
 	}
 	
 }
